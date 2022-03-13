@@ -55,23 +55,71 @@ width: 100%;
     .top-header {
     font-size: 25px !important;
 }
+
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* ----------ide------------- */
+.header{
+    background: #57a958;
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 4px;
+    font-family: sans-serif;
+}
+
+.control-panel {
+    background: lightgray;
+    text-align: right;
+    padding: 4px;
+    font-family: sans-serif;
+}
+
+.languages {
+    background: white;
+    border: 1px solid gray;
+}
+
+#editor {
+    height: 400px;
+}
+
+.button-container {
+    text-align: right;
+    padding: 4px;
+}
+
+.formfolder {
+    display: flex;
+
+}
+
 </style>
 <x-app-layout>
+    <div class="container-fluid">
     <div class="row">
         <div class="col-md-3 offset-1">
             <ul class="nav flex-column" id="sidebar">
-                <h4>Folders</h4>
+                <div class="folder-header">
+                    <h4>Folders</h4>
+                    <a class="btn btn-sm btn-primary" id="createlink" onClick="createFolder()" >Create folder</a>
+                    <form action="" method="post" id="createfolder" style="display: none;">
+                    @csrf
+                    <div class="formfolder">
+                    <input type="text">
+                    <button type="submit"><img src="{{ asset('image/add-folder.png') }}" width="30px" alt=""></button>
+                    <button type="button"><img src="{{ asset('image/x.png') }}" width="20px" alt=""></button>
+                    </div>
+                </form>
+                </div>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Folder1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Folder2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Folder3</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Folder4</a>
                 </li>
             </ul>
         </div>
@@ -95,13 +143,57 @@ width: 100%;
             <div class="row editior">
                 <div class="col-md-12">
 
-                
-                <h1 class="top-header">Add Your code to save your file on save my code</h1>
-                <textarea id="textarea1" class="input shadow" name="name" rows="15" placeholder="Your text here ">
-                </textarea>
+                <div class="header">Add your code here</div>
+                <div class="control-panel">
+                    select language:
+                    &nbsp; &nbsp;
+                    <select name="" id="languages" class="languages" onchange="changeLanguage()" >
+                        <option value="c">C</option>
+                        <option value="cpp">C++</option>
+                        <option value="php">PHP</option>
+                        <option value="python">PYTHON</option>
+                        <option value="node">JavaScript</option>
+                        <option value="sql">Sql</option>
+                        <option value="html">Html</option>
+                        <option value="css">Css</option>
+                    </select> 
+                </div>
+                <div class="editor" id="editor"></div>
+                <div class="button-container">Save File</div>    
                 </div>
             </div>
-
         </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{{ asset('lib/ace.js') }}"></script>
+        <script src="{{ asset('lib/theme-monokai.js') }}"></script>
+<script>
 
+    function createFolder()
+    {
+        document.getElementById('createfolder').style.display = "block";
+        document.getElementById('createlink').style.display = "none";
+    }
+
+    let editor;
+
+    window.onload = function(){
+        editor = ace.edit("editor");
+        editor.setTheme('ace/theme/monokai');
+        editor.session.setMode('ace/mode/c_cpp');
+    }
+
+    function changeLanguage(){
+        let language = $("#languages").val();
+
+        if(language == 'c' || language == 'cpp')editor.session.setMode("ace/mode/c_cpp");
+        else if(language == 'php')editor.session.setMode("ace/mode/php");
+        else if(language == 'python')editor.session.setMode("ace/mode/python");
+        else if(language == 'node')editor.session.setMode("ace/mode/javascript");
+        else if(language == 'sql')editor.session.setMode("ace/mode/sql");
+        else if(language == 'html')editor.session.setMode("ace/mode/html");
+        else if(language == 'css')editor.session.setMode("ace/mode/css");
+    }
+
+</script>
 </x-app-layout>
