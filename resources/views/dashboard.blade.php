@@ -104,6 +104,7 @@
         margin-left: 18px;
     }
 
+
 </style>
 <x-app-layout>
     <div class="container-fluid">
@@ -122,14 +123,26 @@
                                 <button type="button"><img src="{{ asset('image/x.png') }}" width="20px" alt=""></button>
                             </div>
                         </form>
+                        <form action="" method="" name="createfile" id="createfile" style="display: none;">
+                            @csrf
+                            <div class="formfolder">
+                                <input type="text" id="filename" name="filename" value="dsfsd" placeholder="file name">
+                                <input type="hidden" name="user_id" id="user_filename" value="{{ Auth::user()->id }}">
+                                <button type="submit" id="filesubmit" ><img src="{{ asset('image/add-folder.png') }}" width="30px" alt=""></button>
+                                <button type="button"><img src="{{ asset('image/x.png') }}" width="20px" alt=""></button>
+                            </div>
+                        </form>
                     </div>
                     @foreach($data as $item)
                     <li class="nav-item" id="folder_li">
-                        <a class="nav-link active" aria-current="page" style="display:flex"  onclick="myFunction('{{$item->id}}')"><img src="{{ asset('image/folder.png') }}" width="20px" alt="">{{ $item->name }}</a>
+                        <a class="nav-link" aria-current="page" style="display:flex"  onclick="myFunction('{{$item->id}}')"><img src="{{ asset('image/folder.png') }}" width="20px" alt="">{{ $item->name }}</a>
                         <li class="file_li" id="{{$item->id}}" style="display: none;">
-                           <a href="" style="display:flex" ><img src="{{ asset('image/file.png') }}" width="20px" alt="">dfsfsdf</a> 
-                           <a href="" style="display:flex" ><img src="{{ asset('image/file.png') }}" width="20px" alt="">dfsfsdf</a> 
-                           <a href="" style="display:flex" ><img src="{{ asset('image/file.png') }}" width="20px" alt="">dfsfsdf</a> 
+                            <p style="display:flex" onclick="createFile({{$item->id}})" ><img src="{{ asset('image/plus.png') }}" width="20px" alt="">Create new file</p>
+                            @foreach($innerdata as $inneritem)
+                                @if($inneritem->parent_folder == $item->id)
+                                    <a onclick="createTab({{$inneritem}})" style="display:flex" ><img src="{{ asset('image/file.png') }}" width="20px" alt="">{{ $inneritem->name }}</a>
+                                @endif 
+                            @endforeach
                         </li>
                     </li>
                     @endforeach
@@ -137,19 +150,7 @@
             </div>
             <div class="col-md-8">
                 <div class="row">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item nav-tab">
-                            <a class="nav-link " aria-current="page" href="#">Tab1</a>
-                        </li>
-                        <li class="nav-item nav-tab">
-                            <a class="nav-link" href="#">tab2</a>
-                        </li>
-                        <li class="nav-item nav-tab">
-                            <a class="nav-link" href="#">tab3</a>
-                        </li>
-                        <li class="nav-item nav-tab">
-                            <a class="nav-link disabled">tab4</a>
-                        </li>
+                    <ul class="nav nav-tabs allopenfiles" id="openfiles">
                     </ul>
                 </div>
                 <div class="row editior">
@@ -171,7 +172,13 @@
                             </select>
                         </div>
                         <div class="editor" id="editor"></div>
-                        <div class="button-container">Save File</div>
+                        <div class="button-container">
+                            <form action="" method="" id="savecontent" name="savecontent">
+                                @csrf
+                                <input type="hidden" name="savedid" value="" id="saveidform">
+                                <button type="submit" id="savecontentbutton" class="btn btn-success text-dark">Save File</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -183,6 +190,26 @@
         <script src="{{ asset('lib/ace.js') }}"></script>
         <script src="{{ asset('lib/theme-monokai.js') }}"></script>
         <script type="text/javascript">
+
+function createTab(tabData) {
+    var tabHtml = `<li class="nav-item nav-tab openedf" onclick="selectFile(event, ${tabData.id})">
+                        <a class="nav-link " aria-current="page" id=${tabData.id}>${tabData.name}</a>
+                    </li>`
+    if($("#openfiles").find(`#${tabData.id}`).length === 0)
+    {
+        $("#openfiles").append(tabHtml)
+    }
+}
+
+function selectFile(evt, fileid) {
+  var i, tabcontent, tablinks;
+  document.getElementById("saveidform").value = fileid;
+  tablinks = document.getElementsByClassName("openedf");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  evt.currentTarget.className += " active";
+}
 
 function myFunction(id) {
   var _x_ = document.getElementById(id).style.display;
@@ -196,6 +223,7 @@ function myFunction(id) {
     document.getElementById(id).style.display = 'none';
   }
 }
+                // creating folder ajax
 
             $(document).ready(function() {
                 $.ajaxSetup({
@@ -218,19 +246,94 @@ function myFunction(id) {
                     success: function(data) {
                         document.getElementById('foldername').value = '';
                         console.log(data)
-                        var txt1 = `<a class="nav-link active" aria-current="page" href="#" style="display:flex"><img src="{{ asset('image/folder.png') }}" width="20px" alt="">${form_name}</a>`; 
+                        var txt1 = `<a class="nav-link" aria-current="page" href="#" style="display:flex"><img src="{{ asset('image/folder.png') }}" width="20px" alt="">${form_name}</a>`; 
                         $("#folder_li").append(txt1);
                     }
                 })
                 });
-                
-
             });
 
             function createFolder() {
                 document.getElementById('createfolder').style.display = "block";
                 document.getElementById('createlink').style.display = "none";
             }
+
+
+
+            // creating file system  
+
+            let folderidfile;
+            function createFile(folderid) {
+                folderidfile = folderid;
+                document.getElementById('createfolder').style.display = "none";
+                document.getElementById('createlink').style.display = "none";
+                document.getElementById('createfile').style.display = "block";
+            }
+
+            $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $('#filesubmit').on('click', function(event) {
+                    event.preventDefault();
+                    var file_name = document.getElementById('filename').value;
+                    var user_id = document.getElementById('user_filename').value;
+                    $.ajax({
+                    type: 'POST',
+                    url: "createfile",
+                    data: {
+                        filename: file_name,
+                        user: user_id,
+                        parentFolder: folderidfile
+                    },
+                    success: function(data) {
+                        document.getElementById('filename').value = '';
+                      console.log(data)
+                      var txt2 = `<a href="" style="display:flex" ><img src="{{ asset('image/file.png') }}" width="20px" alt="">${file_name}</a>`;
+                      $(`#${data.parent_folder}`).append(txt2);
+                    }
+                })
+                });
+            });
+
+
+
+
+            $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $('#savecontentbutton').on('click', function(event) {
+                    event.preventDefault();
+                    var file_name = document.getElementById("saveidform").value;
+                    var datatosave = editor.getValue();
+                    console.log(file_name,datatosave)
+                    $.ajax({
+                    type: 'POST',
+                    url: "savefile",
+                    data: {
+                        filename: file_name,
+                        file_content: datatosave
+                    },
+                    success: function(data) {
+                        // document.getElementById('filename').value = '';
+                      console.log(data)
+                    //   var txt2 = `<a href="" style="display:flex" ><img src="{{ asset('image/file.png') }}" width="20px" alt="">${file_name}</a>`;
+                    //   $(`#${data.parent_folder}`).append(txt2);
+                    }
+                })
+                });
+            });
+
+
+
+
 
             let editor;
 

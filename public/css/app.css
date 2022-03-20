@@ -1,4 +1,4 @@
-/*
+/* 
 ! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -184,14 +184,14 @@ select {
 2. Remove default button styles.
 */
 
-button,
+/* button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: button; /* 1 */
-  background-color: transparent; /* 2 */
-  background-image: none; /* 2 */
-}
+  -webkit-appearance: button;
+  background-color: transparent; 
+  background-image: none; 
+} */
 
 /*
 Use the modern Firefox focus style for all focusable elements.
