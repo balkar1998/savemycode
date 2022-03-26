@@ -180,6 +180,17 @@
                             </form>
                         </div>
                     </div>
+                    <div class="row comments">
+                        <h1>Comments</h1>
+                        <form action="" method="" id="savecomment" style="margin-left:22px;" name="savecomment">
+                            <textarea name="comment" placeholder="Add your comments here........" id="comment" cols="180" rows="5" style="margin-top: 10px; margin-bottom:10px;"></textarea>
+                            <input type="hidden" name="savedid1" value="" id="saveidform1">
+                            <button type="submit" id="savecommentbutton" class="btn btn-primary text-dark" >Add Comment</button>
+                        </form>
+                    </div>
+                    <footer style="margin-top: 30px;">
+                        Copyright
+                    </footer>
                 </div>
             </div>
         </div>
@@ -190,25 +201,65 @@
         <script src="{{ asset('lib/ace.js') }}"></script>
         <script src="{{ asset('lib/theme-monokai.js') }}"></script>
         <script type="text/javascript">
-
+            var isFileContentChanged = false;
+            var tabsData;
 function createTab(tabData) {
-    var tabHtml = `<li class="nav-item nav-tab openedf" onclick="selectFile(event, ${tabData.id})">
+    var tabHtml = `<li class="nav-item nav-tab active openedf" onclick="selectFile(event, ${tabData.id})">
                         <a class="nav-link " aria-current="page" id=${tabData.id}>${tabData.name}</a>
                     </li>`
     if($("#openfiles").find(`#${tabData.id}`).length === 0)
     {
         $("#openfiles").append(tabHtml)
+        selectFile(event,tabData.id)
     }
 }
 
 function selectFile(evt, fileid) {
+    var alreadyContent = tabsData[2][0]!==undefined ? tabsData[2][0].file_content : ""
+    console.log(alreadyContent,editor.getValue())
+    isFileContentChanged = editor.getValue() == alreadyContent
+    console.log(isFileContentChanged)
+    if(isFileContentChanged){
+        var confirmmassage = confirm('Save your file before leaving')
+        if(confirmmassage){
+            return
+        }
+    }
   var i, tabcontent, tablinks;
   document.getElementById("saveidform").value = fileid;
+  document.getElementById("saveidform1").value = fileid;
+  getDataForFile(fileid)
   tablinks = document.getElementsByClassName("openedf");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
-  evt.currentTarget.className += " active";
+  console.log($(`#${fileid}`).parent())
+  $(`#${fileid}`).parent()[0].className += " active";
+}
+
+function getDataForFile(fileid){
+    $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+  $.ajax({
+                    type: 'post',
+                    url: "/getdata",
+                    data: {
+                        file: fileid
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        tabsData = data
+                        var alreadyContent = data[2][0]!==undefined ? data[2][0].file_content : ""
+                        editor.setValue(alreadyContent)
+                        // var txt3 = `<li></li>`; 
+                        // $("#folder_li").append(txt3);
+                    }
+                })
+            });
 }
 
 function myFunction(id) {
@@ -320,6 +371,40 @@ function myFunction(id) {
                     data: {
                         filename: file_name,
                         file_content: datatosave
+                    },
+                    success: function(data) {
+                        // document.getElementById('filename').value = '';
+                      console.log(data)
+                    //   var txt2 = `<a href="" style="display:flex" ><img src="{{ asset('image/file.png') }}" width="20px" alt="">${file_name}</a>`;
+                    //   $(`#${data.parent_folder}`).append(txt2);
+                    }
+                })
+                });
+            });
+
+
+
+
+
+
+
+            $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $('#savecommentbutton').on('click', function(event) {
+                    event.preventDefault();
+                    var file_name = document.getElementById("saveidform1").value;
+                    var comment = document.getElementById("comment").value;
+                    $.ajax({
+                    type: 'POST',
+                    url: "savecomment",
+                    data: {
+                        filename: file_name,
+                        comment: comment
                     },
                     success: function(data) {
                         // document.getElementById('filename').value = '';

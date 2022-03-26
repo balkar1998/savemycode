@@ -6,14 +6,34 @@ use Illuminate\Http\Request;
 use App\Models\folder;
 use App\Models\File;
 use App\Models\Filedata;
- 
+use App\Models\comment;
+use Illuminate\Support\Facades\Auth;
+
 class AjaxFolderController extends Controller
 {
     public function index()
     {
-        $data = folder::get();
-        $innerdata = File::get();
+        $user_id = Auth::user()->id;
+        $data = folder::where('user_id',$user_id)->get();
+        $innerdata = File::where('user_id',$user_id)->get();
         return view('dashboard',['data' => $data, 'innerdata' => $innerdata ]);
+    }
+
+    public function getdata(Request $request)
+    {   
+        $validatedData = $request->validate([
+            'file' => 'required'
+        ]);
+
+        // return $request->file;
+        $data = array();
+        $user_id = Auth::user()->id;
+        $folders = folder::where('user_id',$user_id)->get();
+        $comment = comment::where('file_id',$request->file)->get();
+        $code = Filedata::where('file_id',$request->file)->get();
+        $innerdata = File::where('user_id',$user_id)->get();
+        array_push($data,$folders,$comment,$code,$innerdata);
+        return $data;
     }
  
     public function store(Request $request)
@@ -66,7 +86,29 @@ class AjaxFolderController extends Controller
             'file_content' => $request->file_content
         );
 
-        $data = Filedata::create($input);
+        // $data = Filedata::create($input);
+        $data = Filedata::updateOrCreate(
+            ['file_id' => $request->filename],
+            $input
+        );
+ 
+        return $data;
+        
+    }
+
+    public function storecomment(Request $request)
+    {
+        $validatedData = $request->validate([
+          'filename' => 'required',
+          'comment' => 'required'
+        ]);
+
+        $input = array(
+            'file_id' => $request->filename,
+            'comment' => $request->comment
+        );
+
+        $data = comment::create($input);
  
         return $data;
         

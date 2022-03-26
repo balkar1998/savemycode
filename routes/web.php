@@ -27,5 +27,7 @@ Route::get('/dashboard',[AjaxFolderController::class,'index'])->middleware(['aut
 Route::post('createfolder',[AjaxFolderController::class,'store']);
 Route::post('createfile',[AjaxFolderController::class,'storefile']);
 Route::post('savefile',[AjaxFolderController::class,'storefilecontent']);
+Route::post('savecomment',[AjaxFolderController::class,'storecomment']);
+Route::post('getdata',[AjaxFolderController::class,'getdata']);
 
 require __DIR__.'/auth.php';
