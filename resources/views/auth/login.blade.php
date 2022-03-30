@@ -1,9 +1,16 @@
 <x-guest-layout>
     <x-auth-card>
+        <style>
+            .flex.items-center.mt-4 {
+                display: flex;
+                justify-content: space-between;
+            }
+        </style>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
             </a>
+            <p>Save my Code</p>
         </x-slot>
 
         <!-- Session Status -->
@@ -40,7 +47,11 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center mt-4">
+                <a href="/register" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-3">
+                    Register
+                </a>
+
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}

@@ -352,7 +352,6 @@ function myFunction(id) {
 
 
 
-
             $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {
