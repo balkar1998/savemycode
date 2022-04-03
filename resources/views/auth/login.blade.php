@@ -8,9 +8,9 @@
         </style>
         <x-slot name="logo">
             <a href="/">
+                Save my Code
                 <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
             </a>
-            <p>Save my Code</p>
         </x-slot>
 
         <!-- Session Status -->

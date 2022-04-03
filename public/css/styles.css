@@ -1,0 +1,220 @@
+html,
+body {
+    height: 100% !important;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.header-blue {
+    border-bottom: 1px solid #dee2e6;
+}
+
+#sidebar {
+    background: #dbdbdb;
+    border-right: 1px solid #dee2e6;
+}
+
+.navbar-collapse {
+    /* flex-basis: 100%; */
+    flex-grow: 0;
+}
+
+#mainDiv {
+    border-bottom: 1px solid #dee2e6;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    /* Height of the footer */
+}
+
+.input {
+    width: 100%;
+}
+
+ul.nav.nav-tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: dbdbdb;
+    align-items: center;
+}
+
+.editior {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+.top-header {
+    font-size: 25px !important;
+}
+
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ----------ide------------- */
+.header {
+    background: #57a958;
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 4px;
+    font-family: sans-serif;
+}
+
+.control-panel {
+    background: lightgray;
+    text-align: right;
+    padding: 4px;
+    font-family: sans-serif;
+}
+
+.languages {
+    background: white;
+    border: 1px solid gray;
+}
+
+#editor {
+    height: 400px;
+}
+
+.button-container {
+    text-align: right;
+    padding: 4px;
+}
+
+.formfolder {
+    display: flex;
+}
+
+.file_li {
+    margin-left: 18px;
+}
+
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: grey;
+    padding: 0.7em;
+    font-size: medium;
+    border-radius: 1em;
+}
+
+.comment-box {
+    margin-top: 1em;
+    border-bottom: 1px solid whitesmoke;
+}
+
+.comment-header {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    color: white;
+    text-shadow: 1px 1px grey;
+}
+
+.comment-user {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+}
+
+.comment-time {
+    display: flex;
+    flex-direction: row;
+}
+
+.comment-body {
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+#savecomment {
+    border: none;
+    border-radius: 1em;
+    padding: 0.5em;
+    margin-left: 1em;
+    cursor: pointer;
+}
+#comment {
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 1em;
+    margin-left: 1em;
+    height: 100%;
+    resize: none;
+}
+.create-file-folder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+.input-file-folder{
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 0.5em;
+    height: 100%;
+    resize: none;
+    font-size: 1em;
+}
+
+#sidebar{
+    height: 85vh;
+    overflow: scroll;
+}
+
+@media (max-width: 480px) {
+    #sidebar{
+        height: 25vh;
+        overflow: scroll;
+    }
+    
+}
+  
+@media (min-width: 481px) and (max-width: 767px) {
+    #sidebar{
+        height: 25vh;
+        overflow: scroll;
+    }
+}
+  
+@media (min-width: 768px) and (max-width: 1023px){
+    #sidebar{
+        height: 25vh;
+        overflow: scroll;
+    }
+}
+
+.footer {
+    background: #57a958;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 4px;
+    font-family: sans-serif;
+}
+
+/* text-muted */
+.text-muted {
+    color: #6c757d;
+}
+
+/* design nav */
+nav {
+    background-color: #57a958 !important;
+    padding: 0.5em;
+    font-size: medium;
+    font-weight: bold;
+    font-family: sans-serif;
+}

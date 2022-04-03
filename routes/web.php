@@ -27,7 +27,11 @@ Route::get('/dashboard',[AjaxFolderController::class,'index'])->middleware(['aut
 Route::post('createfolder',[AjaxFolderController::class,'store']);
 Route::post('createfile',[AjaxFolderController::class,'storefile']);
 Route::post('savefile',[AjaxFolderController::class,'storefilecontent']);
-Route::post('savecomment',[AjaxFolderController::class,'storecomment']);
-Route::post('getdata',[AjaxFolderController::class,'getdata']);
+Route::post('/savecomment',[AjaxFolderController::class,'storecomment']);
+Route::post('/getdata',[AjaxFolderController::class,'getdata']);
+// create route for delete folder
+Route::post('/deletefolder',[AjaxFolderController::class,'deletefolder']);
+// create route for delete file
+Route::post('/deletefile',[AjaxFolderController::class,'deletefile']);
 
 require __DIR__.'/auth.php';

@@ -17,7 +17,7 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
-                background-image: linear-gradient(150deg, #401C45, darkblue, #401C45);
+                background-image: linear-gradient(150deg, #401C45, darkgreen, #401C45);
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-size: cover;
@@ -58,9 +58,9 @@
                 </div>
             @endif
             <div class="body-text">
-                <h1>Welcome in Our plate form</h1>
-                <p>Demo code</p>
-                <p>Demo code Demo code Demo code Demo code Demo code Demo code</p>
+                <h1>Design Software to make world creative & advanced</h1>
+                <p>save my code is the most advanced and creative plateform</p>
+                <p>Where the developer and companies design their software</p>
             </div>
         </div>
     </body>

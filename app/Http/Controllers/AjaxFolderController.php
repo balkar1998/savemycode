@@ -16,7 +16,7 @@ class AjaxFolderController extends Controller
         $user_id = Auth::user()->id;
         $data = folder::where('user_id',$user_id)->get();
         $innerdata = File::where('user_id',$user_id)->get();
-        return view('dashboard',['data' => $data, 'innerdata' => $innerdata ]);
+        return view('dashboard',['data' => $data, 'innerdata' => $innerdata]);
     }
 
     public function getdata(Request $request)
@@ -113,4 +113,30 @@ class AjaxFolderController extends Controller
         return $data;
         
     }
+
+    public function deletefolder(Request $request)
+    {
+        $validatedData = $request->validate([
+          'folder' => 'required'
+        ]);
+
+        $data = folder::where('id',$request->folder)->delete();
+        $data1 = File::where('parent_folder',$request->folder)->delete();
+        $data2 = Filedata::where('file_id',$request->folder)->delete();
+        return $data;
+        
+    }
+
+    public function deletefile(Request $request)
+    {
+        $validatedData = $request->validate([
+          'file' => 'required'
+        ]);
+
+        $data = File::where('id',$request->file)->delete();
+        $data1 = Filedata::where('file_id',$request->file)->delete();
+        return $data;
+        
+    }
+
 }

@@ -1053,6 +1053,12 @@ select {
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Nunito', sans-serif;
+                background-image: linear-gradient(150deg, #401C45, darkblue, #401C45);
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                background-position: center;
 }
 .opacity-0 {
   opacity: 0;
