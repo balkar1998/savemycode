@@ -12,9 +12,11 @@ function createTab(tabData) {
             return;
         }
     }
-    var tabHtml = `<div style="display: flex;align-items:center"><li id="${tabData.id}-li" class="nav-item nav-tab active openedf" onclick="selectFile(event, ${tabData.id})" >
+    var tabHtml = `<div style="display: flex;align-items:center" id="${tabData.id}-div"><li id="${tabData.id}-li" class="nav-item nav-tab active openedf" style="margin-right: 0.4em" onclick="selectFile(event, ${tabData.id})" >
                         <a class="nav-link " aria-current="page" style="display:flex;align-items: center;" id=${tabData.id}>${tabData.name}</a>
-                    </li><img id="${tabData.id}-img" src="image/x.png" height="10px" onclick="closeFile(${tabData.id})" width="10px" alt=""></div>`;
+                    </li><div class="close-bg"><svg xmlns="http://www.w3.org/2000/svg" onclick="closeFile(${tabData.id})" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" id="${tabData.id}-img">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></div></div>`;
     if ($("#openfiles").find(`#${tabData.id}`).length === 0) {
         $("#openfiles").append(tabHtml);
         selectFile(event, tabData.id);
@@ -32,6 +34,8 @@ function createTab(tabData) {
 function closeFile(fileid) {
     $("#openfiles").find(`#${fileid}-li`).remove();
     $("#openfiles").find(`#${fileid}-img`).remove();
+    // remove parent div
+    $("#openfiles").find(`#${fileid}-div`).remove();
     editor.setValue("");
     $(`.comment-container`).empty();
     currentFileContentFromServer = "";
@@ -183,12 +187,14 @@ $(document).ready(function () {
                 `;
                 var txt2 =`
                 <li class="file_li" id="${data.id}" style="display: none;">
-                        <p style="display:flex" onclick="createFile(${data.id})"><img src="/image/plus.png" width="20px" alt="">Create new file</p>
+                        <p style="display:flex" onclick="createFile(${data.id})"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>Create new file</p>
                     </li>
                 `
                 $("#folder_li").append(txt1);
                 $("#folder_li").append(txt2);
-
+{/* <img src="/image/plus.png" width="20px" alt=""></img> */}
             },
         });
     });
@@ -245,7 +251,9 @@ $(document).ready(function () {
             success: function (data) {
                 document.getElementById("filename").value = "";
                 console.log(data);
-                var txt2 = `<a href="" style="display:flex;justify-content: space-between;align-items: center;" onclick="createTab(${data})" ><img src="/image/file.png" width="20px" alt="">${file_name}<img onclick="deleteFile(${data.id})" src="image/x.png" width="8px" alt=""></a>`;
+                var txt2 = `<a href="" style="display:flex;justify-content: space-between;align-items: center;" onclick="createTab(${data})" ><img src="/image/file.png" width="20px" alt="">${file_name}<svg xmlns="http://www.w3.org/2000/svg" style="width:8px" onclick="deleteFile(${data.id})" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg><img  src="image/x.png"  alt=""></a>`;
                 $(`#${data.parent_folder}`).append(txt2);
                 //refresh page
                 location.reload();
@@ -253,6 +261,12 @@ $(document).ready(function () {
         });
     });
 });
+
+function showfolder() {
+    document.getElementById("createfolder").style.display = "none";
+    document.getElementById("createfile").style.display = "none";
+    document.getElementById("createlink").style.display = "block";
+}
 
 // Delete file
 function deleteFile(fileid) {

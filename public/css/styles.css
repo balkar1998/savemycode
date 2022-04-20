@@ -10,9 +10,30 @@ body {
 }
 
 #sidebar {
-    background: #dbdbdb;
+    background: RGBA(39,40,34,0.5) !important;
     border-right: 1px solid #dee2e6;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px !important;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
 .navbar-collapse {
     /* flex-basis: 100%; */
@@ -35,18 +56,58 @@ body {
     width: 100%;
 }
 
+.editorHead {
+    background-color: #111 !important;
+    color: #fff !important;
+}
+
+.languages {
+    color: #000 !important;
+}
+
 ul.nav.nav-tabs {
     display: flex;
-    justify-content: space-around;
-    background-color: dbdbdb;
+    background-color: #111 !important;
+    color: #fff !important;
+    /* padding: 1em 0em !important; */
     align-items: center;
+    border-bottom: 1px solid #222;
+}
+
+#editor {
+    box-shadow: 5px 5px 5px #111;
+}
+
+.commentsshow {
+    margin-top: 20px;
+}
+
+.comment-box {
+    margin-top: 1em;
+    background-color: #555;
+    border-bottom: 1px solid whitesmoke;
+    border-radius: 7px;
+    padding: 0.4em;
+}
+.close-bg {
+    background-color: #111 !important;
+    color: #fff !important;
+    border-radius: 50% !important;
+    padding: 0.5em !important;
 }
 
 .editior {
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    margin-bottom: 10px;
     flex-direction: column;
+}
+
+.allopenfiles div {
+    padding : 0.5em 2em 0.5em 2em;
+    background-color: #333;
+    box-shadow: #222 0px 0px 5px;
+    margin-right: 0.1em;
 }
 
 .top-header {
@@ -60,7 +121,6 @@ ul.nav.nav-tabs {
 
 /* ----------ide------------- */
 .header {
-    background: #57a958;
     text-align: left;
     font-size: 20px;
     font-weight: bold;
@@ -101,8 +161,6 @@ ul.nav.nav-tabs {
 .comment-container {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    background-color: grey;
     padding: 0.7em;
     font-size: medium;
     border-radius: 1em;
@@ -162,6 +220,7 @@ ul.nav.nav-tabs {
 .input-file-folder{
     border: 1px solid black;
     border-radius: 1em;
+    color: #000;
     padding: 0.5em;
     height: 100%;
     resize: none;
@@ -171,6 +230,7 @@ ul.nav.nav-tabs {
 #sidebar{
     height: 85vh;
     overflow: scroll;
+    color: white !important;
 }
 
 @media (max-width: 480px) {
@@ -196,7 +256,7 @@ ul.nav.nav-tabs {
 }
 
 .footer {
-    background: #57a958;
+    box-shadow: gray 0px 0px 5px !important;
     text-align: center;
     font-size: 20px;
     font-weight: bold;
@@ -207,14 +267,45 @@ ul.nav.nav-tabs {
 
 /* text-muted */
 .text-muted {
-    color: #6c757d;
+    color: #fff;
+}
+
+.navbar-default {
+    border-color: transparent !important;
+
 }
 
 /* design nav */
 nav {
-    background-color: #57a958 !important;
+    /* background-color: #2C2E43 !important; */
+    background-color: transparent !important;
+    box-shadow: gray 0px 0px 5px !important;
+    /* text color */
+    color: #B2B1B9 !important;
     padding: 0.5em;
     font-size: medium;
     font-weight: bold;
     font-family: sans-serif;
+}
+
+.navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-toggle {
+    color: #fff !important;
+}
+
+.navbar-nav a {
+    color: #fff !important;
+    font-style: italic !important;
+}
+
+.open >a {
+    background-color: transparent !important;
+    color: #fff !important;
+}
+
+.dropdown-menu {
+    background-color: #595260 !important;
 }
