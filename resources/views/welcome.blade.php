@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Savemycodes</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
-                background-image: linear-gradient(150deg, #401C45, darkgreen, #401C45);
+                
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-size: cover;
@@ -25,7 +25,7 @@
             }
 
             .dashNav {
-                color: white;
+                color: black;
                 padding: 10px;
                 text-align: center;
                 font-size: 20px;
@@ -35,7 +35,7 @@
             }
 
             .body-text {
-                color: white;
+                color: black;
                 font-size: 15px;
                 font-weight: bold;
                 text-align: center;

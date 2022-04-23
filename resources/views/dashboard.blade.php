@@ -33,7 +33,7 @@
                     @foreach($data as $item)
                     <li class="nav-item" id="folder_li">
                         <a class="nav-link ml-1" aria-current="page" style="display:flex;justify-content:space-between;align-items: center;" onclick="myFunction('{{$item->id}}')">
-                            <div style="display: flex;"><img class="mr-5" src="{{ asset('image/folder.png') }}" width="20px" alt=""><span class="ml-2">{{ $item->name }}</span></div><svg xmlns="http://www.w3.org/2000/svg" onclick="deleteFolder({{$item->id}})" style="width:15px" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <div style="display: flex;"><img class="mr-5" src="{{ asset('image/folder.png') }}" width="30px" alt=""><span class="ml-2">{{ $item->name }}</span></div><svg xmlns="http://www.w3.org/2000/svg" onclick="deleteFolder({{$item->id}})" style="width:15px" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
 </svg>
                         </a>
@@ -62,7 +62,7 @@
                 <div class="row editior">
                     <div class="col-md-12">
 
-                        <div class="header">Add your code here</div>
+                        {{-- <div class="header">Add your code here</div> --}}
                         <div class="">
                     <ul class="nav nav-tabs allopenfiles" id="openfiles">
                     </ul>
@@ -72,7 +72,7 @@
                             <form action="" method="" id="savecontent" name="savecontent">
                                 @csrf
                                 <input type="hidden" name="savedid" value="" id="saveidform">
-                                <button type="submit" id="savecontentbutton" style="background-color: #337ab7" class="btn text-dark">Save File</button>
+                                <button type="submit" id="savecontentbutton" style="background-color: #337ab7" class="btn text-dark">Save</button>
                             </form>
                         <div style="display: flex;">
                             select language:
@@ -95,7 +95,7 @@
                         <div class="header">Comments</div>
                         <!-- view single comment -->
                         <div class="comment-container"></div>
-                        <div class="row comments">
+                        <div class="comments">
                             <form action="" method="" id="savecomment" name="savecomment" style="display: flex; align-items:center;flex-direction:row-reverse">
                                 <textarea name="comment" placeholder="Add your comments here........" id="comment" cols="170" rows="2" style="margin-top: 10px; margin-bottom:10px;"></textarea>
                                 <input type="hidden" name="savedid1" value="" id="saveidform1">

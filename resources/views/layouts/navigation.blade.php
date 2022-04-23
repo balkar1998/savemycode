@@ -7,13 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ route('dashboard') }}">Save My Code</a>
+      <img src="{{ asset('image/logo.png') }}" width="85%" alt="">
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <!-- <ul class="nav navbar-nav">
         <li class="nav-link-link"><a href="{{ route('dashboard') }}">{{ Auth::user()->name }}'s {{__('Dashboard') }} <span class="sr-only">(current)</span></a></li>
-        <!-- <li><a href="#">Contacts</a></li> -->
+        <li><a href="#">Contacts</a></li> -->
       </ul>
       <ul class="mr-2 nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -22,7 +22,7 @@
             <li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <input style="background-color :transparent;color: #fff; padding:0 1em 0 1em;" type="submit" value="Log Out" name="{{ __('Log Out') }}"/>
+                    <input style="background-color :transparent;color: rgb(4, 4, 4); padding:0 1em 0 1em;" type="submit" value="Log Out" name="{{ __('Log Out') }}"/>
                 </form>
             </li>
           </ul>
