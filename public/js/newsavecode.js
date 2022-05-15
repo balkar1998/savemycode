@@ -42,7 +42,7 @@ function closeFile(fileid) {
     if($('#openfiles').children().length != 0){
         $('#openfiles').find(`#tempheading`).remove();
     }else{
-        $('#openfiles').append('<h1 id="tempheading">You Have No File Open</h1>');
+        // $('#openfiles').append('<h1 id="tempheading">You Have No File Open</h1>');
     }
 }
 
@@ -301,7 +301,7 @@ function deleteFile(fileid) {
 //Ajax call for saving file
 $(document).ready(function () {
     if($('#openfiles').children().length == 0){
-        $('#openfiles').append(`<h1 id="tempheading">You Have No File Open</h1>`);
+        // $('#openfiles').append(`<h1 id="tempheading">You Have No File Open</h1>`);
         editor.setReadOnly(true);
         $('#savecontentbutton').attr('disabled', true);
         $('#savecommentbutton').attr('disabled', true);
@@ -378,3 +378,18 @@ $(document).ready(function () {
         });
     });
 });
+
+
+// functionality for searching folders 
+    $("#search").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".folName").filter(function () {
+            $(this).html().toLowerCase().indexOf(value) > -1 ? $(this).parent().parent().show() : $(this).parent().parent().hide();
+        });
+    });
+
+// function for clearSearch
+function clearSearch() {
+    $("#search").val("");
+    $(".folName").parent().parent().show();
+}
